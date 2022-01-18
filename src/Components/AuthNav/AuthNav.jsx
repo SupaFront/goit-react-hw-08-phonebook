@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../redux/auth/authSelectors";
+import s from "./AuthNav.module.css";
 
 export default function AuthNav() {
   const isLoggedIn = useSelector(getIsLoggedIn);
@@ -10,7 +11,9 @@ export default function AuthNav() {
       {isLoggedIn ? (
         <NavLink to="/login">Log In</NavLink>
       ) : (
-        <NavLink to="/register">Sign Up</NavLink>
+        <NavLink className={s.pizz} to="/register">
+          Sign Up
+        </NavLink>
       )}
     </>
   );
