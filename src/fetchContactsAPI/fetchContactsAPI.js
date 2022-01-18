@@ -39,7 +39,10 @@ export const removeContactApi = async (id) => {
 export const editContactApi = async (props) => {
   const { id } = props;
   try {
-    const { data } = await axios.put(path.CONTACTS + "/" + id, props);
+    const { data } = await axios.patch(path.CONTACTS + "/" + id, {
+      number: props.number,
+      name: props.name,
+    });
     return data;
   } catch (err) {
     throw err.message;
