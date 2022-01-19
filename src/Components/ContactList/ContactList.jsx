@@ -12,13 +12,6 @@ export default function ContactList() {
   const filteredContacts = useSelector(getFilteredContactsMemo);
   const deleteContact = (id) => dispatch(removeContact(id));
 
-  // const contacts = items.filter((contact) =>
-  //   contact?.name.toLowerCase().trim().includes(filter.toLowerCase().trim())
-  // );
-  useEffect(() => {
-    dispatch(getContacts());
-  }, []);
-
   return (
     <ul>
       {filteredContacts.map(({ id, name, number }) =>

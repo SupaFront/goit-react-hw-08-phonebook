@@ -5,21 +5,22 @@ import { Switch } from "react-router-dom";
 import AppBar from "./Components/AppBar";
 import PrivateRoute from "./Components/Routes/PrivateRoutes";
 import PublicRoute from "./Components/Routes/PublicRoutes";
-import { getIsFetchingCurrent } from "./redux/auth/authSelectors";
+import { getIsFetchingCurrent, getToken } from "./redux/auth/authSelectors";
 import { getCurrentUser } from "./redux/auth/authOperations";
 import "./App.css";
 
-const Home = lazy(() => import("./Components/Home"));
-const SignUp = lazy(() => import("./Components/SignUp"));
-const Login = lazy(() => import("./Components/LogIn"));
-const Phonebook = lazy(() => import("./Components/Phonebook"));
+const Home = lazy(() => import("./pages/Home"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+const Login = lazy(() => import("./pages/LogIn"));
+const Phonebook = lazy(() => import("./pages/Phonebook"));
 
 function App() {
   const dispatch = useDispatch();
   const isFetchingCurrentUser = useSelector(getIsFetchingCurrent);
+  const token = useSelector(getToken);
 
   useEffect(() => {
-    dispatch(getCurrentUser());
+    token && dispatch(getCurrentUser());
   }, [dispatch]);
 
   return (
@@ -36,7 +37,12 @@ function App() {
               <PublicRoute exact path="/">
                 <Home />
               </PublicRoute>
-              <PublicRoute exact path="/register" restricted>
+              <PublicRoute
+                exact
+                path="/register"
+                restricted
+                redirectTo="/contacts"
+              >
                 <SignUp />
               </PublicRoute>
               <PublicRoute
